@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEK WORK | 業務マニュアル</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#263447;background:#f5f7fa}*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}aside{background:#18263b;color:white;width:242px;position:fixed;inset:0 auto 0 0;padding:26px 16px}aside h2{margin:0 10px;font-size:22px}aside p{margin:8px 10px 30px;color:#9caec6;font-size:12px}aside button{display:block;width:100%;border:0;background:transparent;color:#c5d2e2;text-align:left;padding:13px;border-radius:9px;margin-bottom:4px}aside button.on,aside button:hover{background:#31415b;color:white}main{margin-left:242px;padding:37px 40px;max-width:1380px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:30px}h1{margin:6px 0;font-size:27px}h3{margin:10px 0}.muted{font-size:13px;color:#718096;line-height:1.5}.search{border:1px solid #d8e0e8;border-radius:10px;background:white;padding:12px 15px;min-width:270px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card,.block{border:1px solid #e2e8f0;background:white;border-radius:14px;padding:20px}.card{text-align:left;min-height:200px}.card:hover{border-color:#8299b8;transform:translateY(-1px)}.emoji{font-size:25px}.label{color:#54759b;font-size:12px}.bar{height:7px;background:#e9edf2;border-radius:9px;margin:14px 0 7px;overflow:hidden}.bar>span{background:#169780;height:100%;display:block}.step{display:flex;gap:14px;align-items:center}.number{border-radius:9px;background:#eaf2fa;color:#366084;padding:9px 12px;font-size:13px}.step h3{flex:1;font-size:17px}.item{display:flex;gap:12px;align-items:flex-start;margin:12px 0 12px 48px;line-height:1.5;font-size:14px}.item input{accent-color:#128d76;margin-top:4px}.end{border-top:1px dashed #dfe6ee;padding-top:12px;margin:14px 0 0 48px;color:#617083;font-size:12px}.banner{background:#fffaed;border:1px solid #f0dfb6;color:#76613a;padding:14px;border-radius:10px;margin-bottom:18px;font-size:13px}.btn{border:1px solid #d9e1e9;border-radius:9px;padding:9px 13px;background:white;color:#35617f}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.hidden{display:none}@media(max-width:850px){aside{position:static;width:auto;padding:15px}aside p{margin:5px 10px 12px}aside nav{display:flex;overflow:auto}aside button{white-space:nowrap;width:auto}main{margin:0;padding:22px 16px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}header{display:block}.search{width:100%;margin-top:14px}}@media(max-width:550px){.grid{grid-template-columns:1fr}.item,.end{margin-left:0}.step h3{font-size:15px}}
+</style>
+</head>
+<body>
+<aside><h2>MEK / WORK</h2><p>業務マニュアル・工程表</p><nav id="nav"></nav></aside>
+<main><header><div><div class="muted" id="crumb">HOME</div><h1 id="title">業務ポータル</h1><div class="muted" id="sub">必要な工程表を選択して作業を進めてください。</div></div><input class="search" id="search" type="search" placeholder="工程表・作業内容を検索"></header><div id="view"></div></main>
+<script>
+/* 更新する際はこのデータを編集してください。承認条件は案件・会社の確定ルールが優先です。 */
+const manuals=[
+{id:"lp",cat:"制作",icon:"🖥️",title:"LP制作工程表",desc:"企画から実装・公開まで",steps:[
+{title:"戦略・企画",items:["ターゲットと目的・CV地点を整理","訴求軸とベネフィットを決定","参考LP・必要な素材を収集"],exit:"LPの制作方針を共有できる"},
+{title:"構成・コピー",items:["FVのコピー・構図を設計","ボディのストーリーとCTAを設計","訴求の根拠・表現リスクを確認"],exit:"LPの全体構成が完成"},
+{title:"承認・監修",items:["案件ごとの監修者へ文言を確認","社内責任者へ訴求方針を確認","修正を反映しデザイン着手を決定"],exit:"必要な承認が取れている"},
+{title:"デザイン制作",items:["デザイナーへ構成・参考画像・仕様を共有","初稿のスマホ・PC表示を確認","視線誘導・余白・読みやすさを調整"],exit:"デザインが確定"},
+{title:"実装・計測設定",items:["LPの実装・レスポンシブ表示を確認","LINE・フォームの遷移を設定","CVタグ・パラメータを設定"],exit:"テスト環境が完成"},
+{title:"公開前確認",items:["誤字・画像・リンク・表示を確認","実際の登録導線をテスト","CVの計測動作を確認"],exit:"公開可否を確認"},
+{title:"公開・初動",items:["本番URLと表示を確認","広告の遷移先URLを確認","登録率・離脱状況から改善点を記録"],exit:"初動の点検が完了"}]},
+{id:"ads",cat:"広告運用",icon:"📣",title:"広告出稿前チェック",desc:"設定・表現・導線・計測の確認",steps:[
+{title:"出稿条件",items:["目的・KPI・広告費上限を確認","広告費の社内承認を確認","広告アカウントと媒体を確認"],exit:"出稿条件が確定"},
+{title:"広告・LP",items:["広告素材の最新バージョンを確認","案件固有の表現監修・承認を確認","広告とLPの訴求の一貫性を確認"],exit:"素材が確定"},
+{title:"入稿設定",items:["キャンペーン目的とCVイベントを確認","予算・ターゲット・配信地域・期間を確認","URL・UTM・配信面を確認"],exit:"入稿設定の確認が完了"},
+{title:"動作・計測",items:["広告からLP・CTAまでの遷移を確認","テスト登録を実施","CV発火・重複計測を確認"],exit:"テスト完了"},
+{title:"配信初動",items:["審査・配信ステータスを確認","消化・クリック・CVを確認","異常時の停止・報告先を確認"],exit:"初動の点検が完了"}]},
+{id:"cr",cat:"制作",icon:"🎨",title:"広告CR制作工程表",desc:"訴求設計から素材確定まで",steps:[
+{title:"企画",items:["ターゲットと訴求仮説を整理","参考事例と差別化ポイントを確認","サイズ・媒体仕様を確認"],exit:"制作方針が確定"},
+{title:"制作・確認",items:["コピー・構図・画像・動画を制作","読みやすさと訴求の一貫性を確認","案件固有の監修者・社内責任者に確認"],exit:"使用素材が確定"},
+{title:"納品",items:["誤字・サイズ・書き出し形式を確認","版管理して運用担当へ納品"],exit:"入稿できる状態"}]},
+{id:"approval",cat:"社内ルール",icon:"✅",title:"広告費・外注費の稟議",desc:"社内承認と費用の手順",steps:[
+{title:"起案",items:["費用の目的・金額・期待成果を整理","広告部署で戦略と必要性を検討"],exit:"費用の根拠を説明できる"},
+{title:"稟議・承認",items:["部長へ費用・目的を共有","会社としての承認を取得","承認条件と上限額を記録"],exit:"費用承認が確認できる"},
+{title:"実施",items:["承認条件に従って発注・出稿","条件変更や予算超過の場合は再度確認"],exit:"承認範囲内で実行できた"}]},
+{id:"agency",cat:"外部連携",icon:"🤝",title:"代理店立ち上げ工程表",desc:"契約から運用開始・成果確認",steps:[
+{title:"事前調整",items:["目的・KPI・予算・役割分担を確認","広告費・手数料・支払い・立替条件を確認","社内の承認を取得"],exit:"条件が合意できている"},
+{title:"準備",items:["契約・アクセス権を確認","LP・CR・計測・素材を共有","レポート方法と責任分担を確定"],exit:"稼働可能な状態"},
+{title:"開始・管理",items:["配信開始と初動を確認","CPAだけでなく申込・着金・利益を確認","改善・継続・停止の判断を記録"],exit:"次の判断が明確"}]},
+{id:"knowledge",cat:"ナレッジ",icon:"📚",title:"判断基準・事例の蓄積",desc:"社長の指摘や成功・失敗を再利用",steps:[
+{title:"記録",items:["事実・推測・社内決定事項を分ける","判断の背景と理由を残す","適用案件と例外を明記"],exit:"他案件にも使える形になっている"}]}
+];
+let category="すべて",active=null;const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));const storage=(d,i,j)=>"mek-work:"+d.id+":"+i+":"+j;function count(d){let n=0,t=0;d.steps.forEach((s,i)=>s.items.forEach((_,j)=>{t++;if(localStorage.getItem(storage(d,i,j))==="1")n++}));return[n,t]}
+function render(){const cats=["すべて",...new Set(manuals.map(d=>d.cat))];$("#nav").innerHTML=cats.map(c=>'<button data-cat="'+esc(c)+'" class="'+(!active&&category===c?"on":"")+'">'+esc(c)+'</button>').join("");document.querySelectorAll("[data-cat]").forEach(el=>el.onclick=()=>{active=null;category=el.dataset.cat;$("#search").value="";render()});if(active){const d=manuals.find(x=>x.id===active),[n,t]=count(d);$("#crumb").textContent="HOME / "+d.cat;$("#title").textContent=d.title;$("#sub").textContent=d.desc;$("#view").innerHTML='<div class="top" style="margin-bottom:15px"><button class="btn" id="back">← 一覧に戻る</button><button class="btn" id="clear">チェック解除</button></div><div class="banner">初版の仮フローです。承認者や例外条件は、実際の案件で確定したルールを優先してください。チェック状態は使用中のブラウザ内だけに保存されます。</div><div class="block" style="margin-bottom:18px"><div class="top"><strong>進捗</strong><strong>'+n+' / '+t+'（'+Math.round(100*n/t)+'%）</strong></div><div class="bar"><span style="width:'+100*n/t+'%"></span></div></div>'+d.steps.map((s,i)=>'<section class="block" style="margin-bottom:12px"><div class="step"><span class="number">'+String(i+1).padStart(2,"0")+'</span><h3>'+esc(s.title)+'</h3><span class="muted">'+s.items.filter((_,j)=>localStorage.getItem(storage(d,i,j))==="1").length+'/'+s.items.length+'</span></div>'+s.items.map((v,j)=>'<label class="item"><input data-i="'+i+'" data-j="'+j+'" type="checkbox" '+(localStorage.getItem(storage(d,i,j))==="1"?"checked":"")+'><span>'+esc(v)+'</span></label>').join("")+'<div class="end">完了条件：'+esc(s.exit)+'</div></section>').join("");$("#back").onclick=()=>{active=null;render()};$("#clear").onclick=()=>{if(confirm("チェックをすべて解除しますか？")){d.steps.forEach((s,i)=>s.items.forEach((_,j)=>localStorage.removeItem(storage(d,i,j))));render()}};document.querySelectorAll('input[type="checkbox"]').forEach(el=>el.onchange=()=>{localStorage.setItem(storage(d,+el.dataset.i,+el.dataset.j),el.checked?"1":"0");render()});return}
+$("#crumb").textContent="HOME / ダッシュボード";$("#title").textContent="業務ポータル";$("#sub").textContent="作業に入る前に開く、MEKの工程表・チェックリスト。";let q=$("#search").value.toLowerCase();let docs=manuals.filter(d=>(category==="すべて"||d.cat===category)&&[d.title,d.desc,...d.steps.flatMap(s=>[s.title,...s.items])].join(" ").toLowerCase().includes(q));$("#view").innerHTML='<div class="grid">'+docs.map(d=>{let[n,t]=count(d);return '<button class="card" data-id="'+d.id+'"><span class="emoji">'+d.icon+'</span><p class="label">'+esc(d.cat)+'</p><h3>'+esc(d.title)+'</h3><p class="muted">'+esc(d.desc)+'</p><div class="bar"><span style="width:'+100*n/t+'%"></span></div><span class="muted">'+n+' / '+t+' 完了</span></button>'}).join("")+'</div>'+(docs.length?"":'<p>該当する工程表はありません。</p>');document.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>{active=b.dataset.id;render();window.scrollTo(0,0)})}
+$("#search").oninput=()=>{active=null;render()};render();
+</script>
+</body></html>
